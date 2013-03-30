@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This class is used to represent a dictionnary of the Huffman algorithm. It should only be used by the Hyffman class.
+ * This class is used to represent a dictionnary of the Huffman algorithm. It should only be used by the Huffman class.
  * @version 1.0
  * @author Heru-Luin
  * @link https://github.com/Heru-Luin
