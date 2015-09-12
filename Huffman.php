@@ -1,5 +1,5 @@
 <?php 
-require_once ('HuffmanDictionnary.php');
+require_once ('HuffmanDictionary.php');
 
 /**
  * This class allows you to encode and decode informations with a Huffman algorithm.
@@ -8,38 +8,38 @@ require_once ('HuffmanDictionnary.php');
  * @author Heru-Luin
  * @link https://github.com/Heru-Luin
  */
-class		Huffman
+class Huffman
 {
-	private	$dictionnary = null;
+	private	$dictionary = null;
 
 	/**
-	 * Specifies the dictionnary to use for encoding/decoding.
-	 * @param HuffmanDictionnary $dictionnary An instance of HuffmanDictionnary that you will use for encoding/decoding.
+	 * Specifies the dictionary to use for encoding/decoding.
+	 * @param HuffmanDictionary $dictionary An instance of HuffmanDictionary that you will use for encoding/decoding.
 	 */
-	public function	setDictionnary(HuffmanDictionnary $dictionnary)
+	public function	setDictionary(HuffmanDictionary $dictionary)
 	{
-		$this->dictionnary = $dictionnary;
+		$this->dictionary = $dictionary;
 	}
 
 	/**
-	 * Gets the currently used dictionnary
-	 * @return HuffmanDictionnary The instance of HuffmanDictionnary that is currently used by the Huffman object.
+	 * Gets the currently used dictionary
+	 * @return HuffmanDictionary The instance of HuffmanDictionary that is currently used by the Huffman object.
 	 */
-	public function	getDictionnary()
+	public function	getDictionary()
 	{
-		return $this->dictionnary;
+		return $this->dictionary;
 	}
 
 	/**
-	 * Deletes the currently used dictionnary.
+	 * Deletes the currently used dictionary.
 	 */
-	public function	unsetDictionnary()
+	public function	unsetDictionary()
 	{
-		$this->dictionnary = null;
+		$this->dictionary = null;
 	}
 
 	/**
-	 * Encodes some data with the Huffman algorithm. If the dictionnary has not been set yet, it is created with the $data.
+	 * Encodes some data with the Huffman algorithm. If the dictionary has not been set yet, it is created with the $data.
 	 * @param mixed $data The data to encode. If $data is not a string, it will be serialized.s
 	 * @return string A string containing the encoded message.
 	 */
@@ -49,11 +49,11 @@ class		Huffman
 			$data = serialize($data);
 		if (empty($data))
 			return '';
-		if ($this->dictionnary === null)
-			$this->generateDictionnary($data);
+		if ($this->dictionary === null)
+			$this->generateDictionary($data);
 		$binaryString = '';
 		for ($i = 0; isset($data[$i]); ++$i)
-			$binaryString .= $this->dictionnary->get($data[$i]);
+			$binaryString .= $this->dictionary->get($data[$i]);
 		$splittedBinaryString = str_split('1'.$binaryString.'1', 8);
 		$binaryString = '';
 		foreach ($splittedBinaryString as $i => $c)
@@ -66,7 +66,7 @@ class		Huffman
 	}
 
 	/**
-	 * Decodes some data with the Huffman algorithm. If the dictionnary has not been set yet, an exception is thrown.
+	 * Decodes some data with the Huffman algorithm. If the dictionary has not been set yet, an exception is thrown.
 	 * @param mixed $data The data to decode. If $data is not a string, an exception is thrown.
 	 * @return string A string containing the decoded message.
 	 */
@@ -76,8 +76,8 @@ class		Huffman
 			throw new Exception('The data must be a string.');
 		if (empty($data))
 			return '';
-		if ($this->dictionnary === null)
-			throw new Exception('The dictionnary has not been set.');
+		if ($this->dictionary === null)
+			throw new Exception('The dictionary has not been set.');
 		$binaryString = '';
 		$dataLenght = strlen($data);
 		$uncompressedData = '';
@@ -91,17 +91,17 @@ class		Huffman
 			if ($i + 1 == $dataLenght)
 				$decbin = substr($decbin, 0, strrpos($decbin, '1'));
 			$binaryString .= $decbin;
-			while (($c = $this->dictionnary->getEntry($binaryString)) !== null)
+			while (($c = $this->dictionary->getEntry($binaryString)) !== null)
 				$uncompressedData .= $c;
 		}
 		return $uncompressedData;
 	}
 
 	/**
-	 * Creates a dictionnary from $data.
-	 * @param mixed $data The data used to create the dictionnary. If $data is not a string, it will be serialized.
+	 * Creates a dictionary from $data.
+	 * @param mixed $data The data used to create the dictionary. If $data is not a string, it will be serialized.
 	 */
-	public function	generateDictionnary($data)
+	public function	generateDictionary($data)
 	{
 		if (!is_string($data))
 			$data = serialize($data);
@@ -119,22 +119,22 @@ class		Huffman
 			$occurences[] = array($row1[0] + $row2[0], array($row1, $row2));
 			sort($occurences);
 		}
-		$this->dictionnary = new HuffmanDictionnary();
-		$this->fillDictionnary(is_array($occurences[0][1]) ? $occurences[0][1] : $occurences);
+		$this->dictionary = new HuffmanDictionary();
+		$this->fillDictionary(is_array($occurences[0][1]) ? $occurences[0][1] : $occurences);
 	}
 
-	private function fillDictionnary($data, $value = '')
+	private function fillDictionary($data, $value = '')
 	{
 		if (!is_array($data[0][1]))
-			$this->dictionnary->set($data[0][1], $value.'0');
+			$this->dictionary->set($data[0][1], $value.'0');
 		else
-			$this->fillDictionnary($data[0][1], $value.'0');
+			$this->fillDictionary($data[0][1], $value.'0');
 		if (isset($data[1]))
 		{
 			if (!is_array($data[1][1]))
-				$this->dictionnary->set($data[1][1], $value.'1');
+				$this->dictionary->set($data[1][1], $value.'1');
 			else
-				$this->fillDictionnary($data[1][1], $value.'1');
+				$this->fillDictionary($data[1][1], $value.'1');
 		}
 	}
 }

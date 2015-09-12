@@ -6,7 +6,7 @@ A fast and simple implementation of Huffman algorithm in PHP.
 About the comments
 ------------------
 
-This code is commented using the [PHPDoc](http://www.phpdoc.org/) comments so you can easiely generate it's documentation.
+This code is commented using the [PHPDoc](http://www.phpdoc.org/) comments so you can easily generate it's documentation.
 
 Examples
 --------
