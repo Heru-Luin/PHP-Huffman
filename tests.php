@@ -2,6 +2,7 @@
 
 require_once ('Huffman.php');
 
+// Classic use
 $huffman = new Huffman();
 $exampleString = '0123456789';
 $encodedExampleString = $huffman->encode($exampleString);
@@ -13,6 +14,7 @@ echo	'Original string :	'.$exampleString.'<br />'.
 		'Encoded length :	'.strlen($encodedExampleString).'<br />'.
 		'Percentage gain :	'.((100 * (strlen($exampleString) / strlen($encodedExampleString))) - 100).'%<br /><br />';
 
+// Generating a dictionnary
 $huffman = new Huffman();
 $huffman->generateDictionary('0123456789abcdef');
 $dictionary = $huffman->getDictionary();
@@ -26,6 +28,7 @@ echo	'Original string :	'.$exampleString.'<br />'.
 		'Encoded length :	'.strlen($encodedExampleString).'<br />'.
 		'Percentage gain :	'.((100 * (strlen($exampleString) / strlen($encodedExampleString))) - 100).'%<br /><br />';
 
+// Using a dictionnary
 $huffman = new Huffman();
 $huffman->setDictionary($dictionary);
 $exampleString = md5(rand());
@@ -38,6 +41,7 @@ echo	'Original string :	'.$exampleString.'<br />'.
 		'Encoded length :	'.strlen($encodedExampleString).'<br />'.
 		'Percentage gain :	'.((100 * (strlen($exampleString) / strlen($encodedExampleString))) - 100).'%<br /><br />';
 
+// Classic use
 $huffman = new Huffman();
 $exampleString = sha1(rand());
 $encodedExampleString = $huffman->encode($exampleString);
