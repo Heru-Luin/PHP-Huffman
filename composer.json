@@ -1,0 +1,17 @@
+{
+    "name": "Heru-Luin/PHP-Huffman",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "App\\": "src"
+        }
+    },
+    "scripts": {
+        "serve": "php -S 0.0.0.0:9001 index.php",
+        "phpcs": "phpcs --standard=PSR2 src/",
+        "phpcbf": "phpcbf --standard=PSR2 src/"
+    },
+    "require-dev": {
+        "squizlabs/php_codesniffer": "^3.2"
+    }
+}
