@@ -35,7 +35,7 @@ PHP_CodeSniffer can test against PSR-2 coding style guidelines, you must run the
 
 If there is a note that phpcbf can fix some validations automatically, then you can run the phpcbf composer script command line:
 
-    composr phpcbf
+    composer phpcbf
 
 About the comments
 ------------------
